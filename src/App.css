@@ -1,38 +1,554 @@
-.App {
-  text-align: center;
+#root {
+    width: 100vw;
+    height: 100vh;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.label {
+    font-size: 30px;
+    margin-left: 5%;
+    font-weight: bold;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* 
+button,
+input {
+  overflow: visible;
+}
+
+input,
+button,
+select,
+optgroup,
+textarea {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+} */
+
+/* .form-control {
+  font-size: 17px;
+  width: 90%;
+  margin: 50px auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
-.App-link {
-  color: #61dafb;
+.form-control label {
+  width: 45%;
+  padding-right: 20px;
+  margin-bottom: 0px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.form-control input[type="text"] {
+  width: 45%;
+  padding: 7px;
+} */
+
+/* button {
+  max-width: 80px;
+  padding: 5px 10px;
+} */
+
+/* Form CSS */
+
+.un-header {
+    height: 70px;
+    background: white;
 }
+
+.text-center {
+    text-align: center !important;
+}
+
+.bg-container {
+    background: #e5e5ef;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.container-fluid {
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.bg-title {
+    background: #3f51b5;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.h4 {
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+.mb-4 {
+    margin-bottom: 1.5rem !important;
+}
+
+.text-white {
+    color: #fff;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.col-1,
+.col-2,
+.col-3,
+.col-4,
+.col-5,
+.col-6,
+.col-7,
+.col-8,
+.col-9,
+.col-10,
+.col-11,
+.col-12,
+.col,
+.col-auto,
+.col-sm-1,
+.col-sm-2,
+.col-sm-3,
+.col-sm-4,
+.col-sm-5,
+.col-sm-6,
+.col-sm-7,
+.col-sm-8,
+.col-sm-9,
+.col-sm-10,
+.col-sm-11,
+.col-sm-12,
+.col-sm,
+.col-sm-auto,
+.col-md-1,
+.col-md-2,
+.col-md-3,
+.col-md-4,
+.col-md-5,
+.col-md-6,
+.col-md-7,
+.col-md-8,
+.col-md-9,
+.col-md-10,
+.col-md-11,
+.col-md-12,
+.col-md,
+.col-md-auto,
+.col-lg-1,
+.col-lg-2,
+.col-lg-3,
+.col-lg-4,
+.col-lg-5,
+.col-lg-6,
+.col-lg-7,
+.col-lg-8,
+.col-lg-9,
+.col-lg-10,
+.col-lg-11,
+.col-lg-12,
+.col-lg,
+.col-lg-auto,
+.col-xl-1,
+.col-xl-2,
+.col-xl-3,
+.col-xl-4,
+.col-xl-5,
+.col-xl-6,
+.col-xl-7,
+.col-xl-8,
+.col-xl-9,
+.col-xl-10,
+.col-xl-11,
+.col-xl-12,
+.col-xl,
+.col-xl-auto {
+    position: relative;
+    width: 100%;
+    padding-right: 0.75rem;
+    padding-left: 0.75rem;
+}
+
+.form-complain .form-panel {
+    border-radius: 7px;
+    box-shadow: 0px 0px 50px #ddd;
+    padding: 2.5rem !important;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-panel label.col-md-4 {
+    position: relative;
+    text-align: right;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    align-self: center;
+    justify-content: flex-end;
+}
+
+.form-group label {
+    display: inline-block;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    height: 40px;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    line-height: 1.5;
+    color: #6e707e;
+    background-color: transparent;
+    background-clip: padding-box;
+    border: 1.5px solid #aaa;
+    border-radius: 5px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.input-group {
+    /* display: flex; */
+    align-items: center;
+}
+
+.input-group input {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.input-group button {
+    margin-left: 10px;
+}
+
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    color: #858796;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    border-radius: 0.35rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #2639a2;
+    border-color: #2639a2;
+}
+
+.btn-user {
+    font-size: 0.8rem;
+    border-radius: 10rem;
+    padding: 0.5rem 1rem;
+    font-weight: bold;
+    min-width: 100px;
+}
+
+.btn-danger {
+    color: #fff;
+    background-color: #e74a3b;
+    border-color: #e74a3b;
+}
+
+.file-input__input {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+input::placeholder {
+    opacity: 0.5;
+    /* or any other value between 0 and 1 */
+}
+
+.popup {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    box-sizing: border-box;
+    overflow: scroll;
+    cursor: default;
+}
+
+.popup::-webkit-scrollbar {
+    width: 0.5em;
+    height: 0.5em;
+}
+
+.popup::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 1em;
+}
+
+.popup::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.label2 {
+    width: 200px;
+    float: left;
+    margin-right: 20px;
+    font-weight: bold;
+}
+
+.list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    grid-gap: 10px;
+    margin-top: 5px;
+}
+
+.list-dark {
+    background-color: #f2f2f2;
+}
+
+.cross {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin: 0 10px 0 0;
+    padding: 0;
+}
+
+@media (min-width: 768px) {
+    .popup {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 40%;
+        height: 100%;
+        background-color: white;
+        box-sizing: border-box;
+        overflow: scroll;
+        cursor: default;
+    }
+
+    .list {
+        list-style: none;
+        padding: 0;
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        grid-gap: 10px;
+    }
+
+    .col-md-8 {
+        flex: 0 0 66.66667%;
+        max-width: 66.66667%;
+    }
+
+    .col-md-4 {
+        flex: 0 0 33.33333%;
+        max-width: 33.33333%;
+    }
+}
+
+/* Form CSS */
+
+/* Fault Table CSS */
+.select-group {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin: 40px 0 0 0;
+    gap: 10px;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0px;
+    text-align: left;
+    width: 80vw;
+    margin: 30px auto;
+}
+
+td,
+th {
+    border: none;
+    padding: 4px 8px;
+    border-right: 1px solid #bbb;
+    border-left: 1px solid #bbb;
+}
+
+tr:first-child th {
+    border-top: 1px solid #bbb;
+}
+
+tr:last-child td {
+    border-bottom: 1px solid #bbb;
+}
+
+.mask {
+    overflow: hidden;
+}
+
+.mask>div {
+    background: linear-gradient(white, white), linear-gradient(white, white) right,
+        radial-gradient(at 0 50%, rgba(0, 0, 0, 0.3), transparent 70%),
+        radial-gradient(at 100% 50%, rgba(0, 0, 0, 0.3), transparent 70%) right;
+    background-size: 10px 100%;
+    background-repeat: no-repeat;
+    background-attachment: local, local, scroll, scroll;
+    overflow: auto;
+}
+
+.even {
+    background-color: #f2f2f2;
+    /* light grey */
+}
+
+.odd {
+    background-color: #d9d9d9;
+    /* darker grey */
+}
+
+.pill {
+    display: inline-block;
+    padding: 0.4rem 0.8rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: capitalize;
+    background-color: #ccc;
+    color: #fff;
+}
+
+.pill-status-resolved {
+    background-color: rgb(0, 255, 0);
+}
+
+.pill-status-pending {
+    background-color: rgb(255, 0, 0);
+}
+
+.pill-status-inprogress {
+    background-color: rgb(255, 164, 0);
+}
+
+/* Fault Table CSS */
+
+/* Modal CSS */
+
+.modal-background {
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    position: relative;
+    z-index: 10000;
+    max-width: 400px;
+    width: 100%;
+    min-height: 250px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    padding: 5px 10px 5px 10px;
+}
+
+.modal-actions {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+}
+
+.modal-button {
+    flex: 1;
+    height: 50px;
+    border: none;
+    border-top: 1px solid #ccc;
+    background-color: #f5f5f5;
+    cursor: pointer;
+}
+
+.modal-button-yes {
+    border-left: 1px solid #ccc;
+}
+
+.modal-button-no {
+    border-right: 1px solid #ccc;
+}
+
+/* Modal CSS */
+
+/* Select CSS */
+
+.select {
+    font-size: 16px;
+    border: none;
+    background-color: #f5f5f5;
+    padding: 10px;
+    width: 200px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23888" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 0.7em top 50%, 0 0;
+    background-size: 0.65em auto, 100%;
+}
+
+/* Select CSS */

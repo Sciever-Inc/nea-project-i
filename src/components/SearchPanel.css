@@ -1,0 +1,27 @@
+.search-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: 320px;
+  background: transparent;
+  padding: 1px;
+  margin: 20px;
+  font-size: 13px;
+  line-height: 2;
+  color: #6b6b76;
+  text-transform: uppercase;
+  outline: none;
+}
+
+input.search-txt {
+  padding: 0.8em;
+  margin-right: 1em;
+}
+
+button.search-btn {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  font-size: small;
+  height: fit-content;
+  width: fit-content;
+}
