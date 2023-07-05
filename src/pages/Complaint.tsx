@@ -3,7 +3,7 @@ import "../App.css";
 import { v4 as uuid4 } from "uuid";
 import Logo from "../assets/nea logo.png";
 import axios from "axios";
-import { strapi_url } from "../config/constant";
+import { strapi_token, strapi_url } from "../config/constant";
 
 const ref_id = uuid4();
 
@@ -40,21 +40,17 @@ const Complaint = () => {
           );
 
           const { latitude, longitude } = position.coords;
-          const longlat = longitude + "," + latitude;
+          console.log(position.coords);
           const response = await axios.get(
-            `https://api.mapbox.com/geocoding/v5/mapbox.places/${longlat}.json`,
+            `https://nominatim.openstreetmap.org/reverse.php?lat=${position.coords.latitude}&lon=${position.coords.longitude}`,
             {
               params: {
-                country: "np",
-                proximity: "ip",
-                limit: 1,
-                // access_token: mapConfig.accessToken,
+                format: "jsonv2",
               },
             }
           );
-          const data = response.data.features;
-          const location_name = data.map((d: any) => d.place_name);
-          setLocationName(location_name.join(""));
+          setLocationName(response.data.display_name);
+
           setLongitude(longitude.toString());
           setLatitude(latitude.toString());
         } catch (error) {
@@ -75,7 +71,12 @@ const Complaint = () => {
     if (image) {
       const formData = new FormData();
       formData.append("files", image);
-      const response = await axios.post(`${strapi_url}/api/upload`, formData);
+      const response = await axios.post(`${strapi_url}/api/upload`, formData, {
+        headers: {
+          Authorization: `Bearer ${strapi_token}`,
+        },
+      });
+
       setImageId(response.data.map((el: any) => el.id));
       console.log(response.data.map((el: any) => el.formats.thumbnail.url));
       setThumbnailUrl(
@@ -90,7 +91,10 @@ const Complaint = () => {
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.preventDefault();
-    await axios.delete(`${strapi_url}/api/upload/files/${imageId}`);
+    await axios.delete(`${strapi_url}/api/upload/files/${imageId}`, {
+      headers: { Authorization: `Bearer ${strapi_token}` },
+    });
+
     setThumbnailUrl("");
   };
 
@@ -144,6 +148,7 @@ const Complaint = () => {
       axios.post(`${strapi_url}/api/complaints`, data, {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${strapi_token}`,
         },
       });
       setSubmitted(true);
@@ -220,7 +225,6 @@ const Complaint = () => {
       setConcernOffice("");
     }
   }, [provincialOffice]);
-
 
   return (
     <>

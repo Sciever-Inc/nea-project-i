@@ -9,7 +9,7 @@ import {
 import { useEffect, useMemo, useState } from "react";
 import Circle from "../assets/circle.png";
 import axios from "axios";
-import { strapi_url } from "../config/constant";
+import { strapi_token, strapi_url } from "../config/constant";
 import { TileLayer } from "@deck.gl/geo-layers/typed";
 
 export type IStatusType = {
@@ -174,7 +174,9 @@ function ComplaintMap() {
   useEffect(() => {
     const complain = async () => {
       try {
-        const response = await axios.get(`${strapi_url}/api/complaints`);
+        const response = await axios.get(`${strapi_url}/api/complaints`, {
+          headers: { Authorization: `Bearer ${strapi_token}` },
+        });
         setData(response.data.data);
       } catch (error) {
         setData([]);

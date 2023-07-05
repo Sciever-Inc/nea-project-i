@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "../App.css";
 import axios from "axios";
-import { strapi_url } from "../config/constant";
+import { strapi_token, strapi_url } from "../config/constant";
 
 interface ModalProps {
   handleClose: () => void;
@@ -41,6 +41,11 @@ function Modal(props: ModalProps) {
         data: {
           assigned_vehicle: selectedVehicle,
           status: "in-progress",
+        },
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${strapi_token}`,
         },
       }
     );

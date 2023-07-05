@@ -4,7 +4,7 @@ import axios from "axios";
 // import { Link, useNavigate } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import Modal from "../components/Modal";
-import { strapi_url } from "../config/constant";
+import { strapi_token, strapi_url } from "../config/constant";
 
 function FaultTable() {
   const history = useHistory();
@@ -26,7 +26,14 @@ function FaultTable() {
     setIsModalOpen(false);
     const complain = async () => {
       try {
-        const response = await axios.get(`${strapi_url}/api/complaints`);
+        const response = await axios.get(
+          `${strapi_url}/api/complaints?sort=id:DESC`,
+          {
+            headers: {
+              Authorization: `Bearer ${strapi_token}`,
+            },
+          }
+        );
         setData(response.data.data);
       } catch (error) {
         setData([]);
@@ -38,7 +45,14 @@ function FaultTable() {
   useEffect(() => {
     const complain = async () => {
       try {
-        const response = await axios.get(`${strapi_url}/api/complaints`);
+        const response = await axios.get(
+          `${strapi_url}/api/complaints?sort=id:DESC`,
+          {
+            headers: {
+              Authorization: `Bearer ${strapi_token}`,
+            },
+          }
+        );
         setData(response.data.data);
       } catch (error) {
         setData([]);
