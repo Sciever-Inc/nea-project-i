@@ -1,7 +1,10 @@
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Redirect, Route } from "react-router-dom";
 import { routes } from "./routes";
+import useLoginState from "./hooks/useLoginState";
 
 const App = () => {
+  const { isLoggedIn } = useLoginState();
+
   return (
     <BrowserRouter>
       {routes.map((route, index) => (
@@ -9,7 +12,23 @@ const App = () => {
           exact={route.exact}
           key={index}
           path={route.path}
-          component={route.component}
+          render={(props) => {
+            if (route.path === "/callback") {
+              return <route.component {...props} />;
+            } else if (route.path === "/login") {
+              return isLoggedIn ? (
+                <Redirect to="/" />
+              ) : (
+                <route.component {...props} />
+              );
+            } else {
+              return isLoggedIn ? (
+                <route.component {...props} />
+              ) : (
+                <Redirect to="/login" />
+              );
+            }
+          }}
         />
       ))}
     </BrowserRouter>

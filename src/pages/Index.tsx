@@ -11,6 +11,9 @@ const Index = () => {
 
       <ul>
         <li>
+          <Link to="/map-device">Map Device</Link>
+        </li>
+        <li>
           <Link to="/complaint">Complaint Form</Link>
         </li>
         <li>
@@ -28,6 +31,12 @@ const Index = () => {
         </li>
         <li>
           <Link to="/complaint-map">Complaint Map OSM</Link>
+        </li>
+        <li>
+          <Link to="/trip">Trip Table</Link>
+        </li>
+        <li>
+          <Link to="/stop">Stop Table</Link>
         </li>
       </ul>
     </div>
