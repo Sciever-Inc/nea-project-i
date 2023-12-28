@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const Index = () => {
+const Nea = () => {
   const searchParams = new URLSearchParams();
   searchParams.set("callback_url", "https://google.com");
 
@@ -35,7 +35,7 @@ const Index = () => {
           </ul>
         </div>
 
-        <div>
+        {/* <div>
           <h3>GPS Tracker</h3>
           <ul>
             <li>
@@ -48,10 +48,10 @@ const Index = () => {
               <Link to="/stop">Stop Table</Link>
             </li>
           </ul>
-        </div>
+        </div> */}
       </div>
     </div>
   );
 };
 
-export default Index;
+export default Nea;

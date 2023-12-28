@@ -10,6 +10,9 @@ import MapOsm from "./pages/SingleComplaint";
 import TripTable from "./pages/TripTbable";
 import StopTable from "./pages/StopTable";
 import MapDevice from "./pages/MapDevice";
+import SingleTrip from "./pages/TripMap";
+import ComplaintMapbox from "./pages/ComplaintMapbox";
+import Nea from "./pages/NEA";
 
 export const routes: RouteProps[] = [
   {
@@ -23,6 +26,10 @@ export const routes: RouteProps[] = [
   {
     path: "/complaint-map",
     component: ComplaintMap,
+  },
+  {
+    path: "/complaint-mapbox",
+    component: ComplaintMapbox,
   },
   {
     path: "/fault-table",
@@ -45,9 +52,14 @@ export const routes: RouteProps[] = [
     component: Index,
     exact: true,
   },
+
   {
     path: "/trip",
     component: TripTable,
+  },
+  {
+    path: "/trip-map",
+    component: SingleTrip,
   },
   {
     path: "/stop",

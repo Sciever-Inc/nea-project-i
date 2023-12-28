@@ -1,6 +1,7 @@
 import { BrowserRouter, Redirect, Route } from "react-router-dom";
 import { routes } from "./routes";
 import useLoginState from "./hooks/useLoginState";
+import { useEffect } from "react";
 
 const App = () => {
   const { isLoggedIn } = useLoginState();

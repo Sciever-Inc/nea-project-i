@@ -13,13 +13,14 @@ import { PathStyleExtension } from "@deck.gl/extensions/typed";
 import axios from "axios";
 import * as d3 from "d3";
 import { backend_url, strapi_url, strapi_token } from "../config/constant";
-import Circle from "../assets/circle.png";
+import Circle from "../assets/icons.png";
 import { TileLayer } from "@deck.gl/geo-layers/typed";
 
 const ICON_MAPPING: IconLayerProps["iconMapping"] = {
   circle: { x: 0, y: 0, width: 128, height: 128, mask: true },
   marker: { x: 180, y: 0, width: 135, height: 150, mask: true },
   vehicle: { x: 0, y: 150, width: 180, height: 108, mask: true },
+  top_car: { x: 180, y: 150, width: 180, height: 160, mask: true },
 };
 
 function getColor(idx: number) {
@@ -69,12 +70,13 @@ const MapDevice = () => {
     idx,
     device_id: item.device_id,
     adjusted_path: JSON.parse(item.coordinates),
+    heading: JSON.parse(item.heading),
   }));
 
   useEffect(() => {
     const refresh = () => {
       axios
-        .get(`${backend_url}/api/v1/data`)
+        .get(`${backend_url}/data`)
         .then((response) => {
           try {
             const json = response.data;
@@ -112,34 +114,34 @@ const MapDevice = () => {
           });
         },
       }),
-    //   new PathLayer({
-    //     id: "path-layer",
-    //     data: processedData,
-    //     widthMinPixels: 5,
-    //     pickable: true,
-    //     highlightColor: [128, 128, 128, 256],
-    //     autoHighlight: true,
-    //     capRounded: true,
-    //     jointRounded: true,
-    //     billboard: true,
-    //     getWidth: 0,
-    //     getPath: (d) => d.adjusted_path,
-    //     getColor: (d) => {
-    //       const col = getColor(d.idx);
+      //   new PathLayer({
+      //     id: "path-layer",
+      //     data: processedData,
+      //     widthMinPixels: 5,
+      //     pickable: true,
+      //     highlightColor: [128, 128, 128, 256],
+      //     autoHighlight: true,
+      //     capRounded: true,
+      //     jointRounded: true,
+      //     billboard: true,
+      //     getWidth: 0,
+      //     getPath: (d) => d.adjusted_path,
+      //     getColor: (d) => {
+      //       const col = getColor(d.idx);
 
-    //       return col;
-    //     },
-    //     getDashArray: [4, 4],
-    //     dashJustified: true,
-    //     parameters: {
-    //       depthMask: false,
-    //     },
-    //     extensions: [
-    //       new PathStyleExtension({
-    //         dash: true,
-    //       }),
-    //     ],
-    //   }),
+      //       return col;
+      //     },
+      //     getDashArray: [4, 4],
+      //     dashJustified: true,
+      //     parameters: {
+      //       depthMask: false,
+      //     },
+      //     extensions: [
+      //       new PathStyleExtension({
+      //         dash: true,
+      //       }),
+      //     ],
+      //   }),
       new IconLayer({
         id: "complain",
         data: paths,
@@ -164,29 +166,30 @@ const MapDevice = () => {
           }
         },
       }),
-      new IconLayer({
-        id: "icon-layer-1",
-        data: processedData,
-        pickable: true,
-        iconAtlas: Circle,
-        iconMapping: ICON_MAPPING,
-        sizeScale: 4,
-        getIcon: () => "circle",
-        getPosition: (d) => d.adjusted_path[d.adjusted_path.length - 1],
-        getSize: 6,
-        getColor: [0, 128, 0, 255],
-      }),
+      //   new IconLayer({
+      //     id: "icon-layer-1",
+      //     data: processedData,
+      //     pickable: true,
+      //     iconAtlas: Circle,
+      //     iconMapping: ICON_MAPPING,
+      //     sizeScale: 4,
+      //     getIcon: () => "circle",
+      //     getPosition: (d) => d.adjusted_path[d.adjusted_path.length - 1],
+      //     getSize: 6,
+      //     getColor: [0, 128, 0, 255],
+      //   }),
       new IconLayer({
         id: "icon-layer-2",
         data: processedData,
         pickable: true,
         iconAtlas: Circle,
         iconMapping: ICON_MAPPING,
-        sizeScale: 4,
-        getIcon: () => "vehicle",
+        sizeScale: 6,
+        getIcon: () => "top_car",
         getPosition: (d) => d.adjusted_path[0],
+        getAngle: (d) => d.heading[0],
         getSize: 6,
-        getColor: [20, 52, 164, 200],
+        getColor: [20, 52, 164, 255],
       }),
     ],
     [processedData, paths]

@@ -16,6 +16,7 @@ export function formatDuration(duration: number) {
     return `${remainingMinutes} minute(s)`;
   }
 }
+
 function TripTable() {
   const currentDate = new Date();
   const currentDateTimeString = currentDate.toISOString().slice(0, 16);
@@ -24,11 +25,16 @@ function TripTable() {
   const oneWeekAgoDateTimeString = oneWeekAgo.toISOString().slice(0, 16);
 
   const [data, setData] = useState<any[]>([]);
-  const [fromDateTime, setFromDateTime] = useState(oneWeekAgoDateTimeString);
-  const [toDateTime, setToDateTime] = useState(currentDateTimeString);
-  const [deviceId, setDeviceId] = useState("");
+  const [fromDateTime, setFromDateTime] = useState<string>(
+    () => localStorage.getItem("fromDateTime") || oneWeekAgoDateTimeString
+  );
+  const [toDateTime, setToDateTime] = useState<string>(
+    () => localStorage.getItem("toDateTime") || currentDateTimeString
+  );
+  const [deviceId, setDeviceId] = useState<string>(
+    () => localStorage.getItem("deviceId") || ""
+  );
 
-  //   const navigate = useNavigate();
   const history = useHistory();
 
   useEffect(() => {
@@ -37,7 +43,7 @@ function TripTable() {
 
   const fetchData = async () => {
     try {
-      let url = `${backend_url}/api/v1/trips`;
+      let url = `${backend_url}/trips`;
 
       if (fromDateTime && toDateTime) {
         url += `?from=${encodeURIComponent(
@@ -51,9 +57,12 @@ function TripTable() {
         url += `?device_id=${encodeURIComponent(deviceId)}`;
       }
 
+      localStorage.setItem("fromDateTime", fromDateTime);
+      localStorage.setItem("toDateTime", toDateTime);
+      localStorage.setItem("deviceId", deviceId);
       const response = await axios.get(url);
-      console.log(response.data);
       setData(response.data);
+      console.log(response.data);
     } catch (error) {
       setData([]);
     }
@@ -102,13 +111,15 @@ function TripTable() {
             fontSize: "16px",
           }}
         />
-        <button onClick={handleFilter}>Filter</button>
+        <button onClick={handleFilter} className="btn btn-primary">
+          Filter
+        </button>
         {/* <button onClick={() => navigate("/trips")}>View All on Map</button> */}
         <button onClick={() => history.push("/trips")}>View All on Map</button>
       </div>
 
       <div className="mask">
-        <div>
+        <div className="table-container">
           <table>
             <thead>
               <tr style={{ backgroundColor: "#8a8a8a" }}>
@@ -120,6 +131,8 @@ function TripTable() {
                 <th>End Time</th>
                 <th>Duration</th>
                 <th>Distance</th>
+                <th>Max Speed</th>
+                <th>Avg Speed</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -134,11 +147,13 @@ function TripTable() {
                   <td>{new Date(item.end_time).toLocaleString()}</td>
                   <td>{formatDuration(item.duration)}</td>
                   <td>{(item.distance / 1000).toFixed(2)} km</td>
-                  <td style={{ minWidth: "126px" }}>
+                  <td>{item.max_speed.toFixed(2)} km/h</td>
+                  <td>{item.average_speed.toFixed(2)} km/h</td>
+                  {/* <td style={{ minWidth: "126px" }}>
                     <button
                       onClick={() =>
                         // navigate("/single-trip", {
-                        history.push("/single-trip", {
+                        history.push("/trip-map", {
                           state: {
                             trip: item,
                           },
@@ -147,6 +162,23 @@ function TripTable() {
                     >
                       View on Map
                     </button>
+                  </td> */}
+
+                  <td style={{ minWidth: "126px" }}>
+                    {item.road_snap !== null && item.road_snap !== undefined ? (
+                      <button
+                        className="btn btn-primary"
+                        onClick={() =>
+                          history.push("/trip-map", {
+                            state: { trip: item },
+                          })
+                        }
+                      >
+                        View on Map
+                      </button>
+                    ) : (
+                      <span>Unavailable</span>
+                    )}
                   </td>
                 </tr>
               ))}

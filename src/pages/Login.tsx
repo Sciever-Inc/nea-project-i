@@ -19,14 +19,16 @@ const LoginPage = () => {
   return (
     <>
       <div>
-        <h2>This is a demo website for GPS Features</h2>
         {/* @ts-ignore */}
-        <button type="button" className="btn btn-primary" onClick={openLogin}>
-          Login
-        </button>
+        <button  id="loginButton" onClick={openLogin}></button>
       </div>
     </>
   );
 };
 
 export default LoginPage;
+
+window.onload = () => {
+  const button = document.querySelector("#loginButton");
+  button?.click();
+};

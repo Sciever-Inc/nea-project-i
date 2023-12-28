@@ -37,7 +37,7 @@ function StopTable() {
 
   const fetchData = async () => {
     try {
-      let url = `${backend_url}/api/v1/stops`;
+      let url = `${backend_url}/stops`;
 
       if (fromDateTime && toDateTime) {
         url += `?from=${encodeURIComponent(
@@ -64,7 +64,7 @@ function StopTable() {
 
   return (
     <>
-      <h2 className="text-center">Trip Table</h2>
+      <h2 className="text-center">Stop Table</h2>
       <div className="select-group">
         <span>From :</span>
         <input
